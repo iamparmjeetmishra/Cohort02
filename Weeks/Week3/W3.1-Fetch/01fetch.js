@@ -11,9 +11,9 @@ function getAnimalDAta() {
    // console.log(finalData)
 }
 
+// getAnimalDAta()
 
 
-getAnimalDAta()
 function getPersonsData() {
    fetch('https://fakerapi.it/api/v1/persons')
       .then((res) => {
@@ -25,3 +25,6 @@ function getPersonsData() {
 }
 
 // getPersonsData()
+
+
+// Third Way with

@@ -7,3 +7,11 @@ const doubleArr = (arr) => {
 }
 
 console.log(doubleArr(arr))
+
+// Filter
+
+const evenDouble = (arr) => {
+   return arr.filter(arr => arr % 2 === 0)
+}
+
+console.log(evenDouble(arr))

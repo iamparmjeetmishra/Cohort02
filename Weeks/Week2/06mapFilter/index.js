@@ -10,8 +10,16 @@ console.log(doubleArr(arr))
 
 // Filter
 
-const evenDouble = (arr) => {
+const evenFilter = (arr) => {
    return arr.filter(arr => arr % 2 === 0)
 }
+
+console.log(evenFilter(arr))
+
+const evenDouble = (arr) => {
+   let filterArr = arr.filter(arr => arr % 2 === 0)
+   return filterArr.map(arr => arr * 2)
+}
+
 
 console.log(evenDouble(arr))

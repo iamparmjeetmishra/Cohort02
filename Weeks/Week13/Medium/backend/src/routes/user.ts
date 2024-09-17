@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { sign } from "hono/jwt";
-import { SigninInputProps, SignupInputProps } from "@iamparmjeet/medium-common";
 import { getPrisma } from "../middleware/dbMiddleware";
+import { SigninInputProps, SignupInputProps } from "@iamparmjeet/medium-common";
 
 
 export const userRouter = new Hono<{
@@ -14,7 +14,8 @@ export const userRouter = new Hono<{
 
 userRouter.post("/signup", async (c) => {
 	const body = await c.req.json();
-	const { success } = SignupInputProps.safeParse(body)
+	const { success, error } = SignupInputProps.safeParse(body)
+	console.log(`err creating user: ${error}`)
 	if (!success) {
 		c.status(411)
 		return c.json({
@@ -27,7 +28,7 @@ userRouter.post("/signup", async (c) => {
 		const prisma = await getPrisma(c.env.DATABASE_URL);
 		const user = await prisma.user.create({
 			data: {
-				username: body.username,
+				email: body.email,
 				name: body.name,
 				password: body.password,
 			},
@@ -58,7 +59,7 @@ userRouter.post("/signin", async (c) => {
 		const prisma = await getPrisma(c.env.DATABASE_URL);
 		const user = await prisma.user.findUnique({
 			where: {
-				username: body.email,
+				email: body.email,
 				password: body.password
 			},
 		});

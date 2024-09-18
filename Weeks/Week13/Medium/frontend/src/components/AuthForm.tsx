@@ -15,9 +15,11 @@ export default function AuthForm({
 }) {
 	const [formInputs, setFormInputs] = useState<SignupInputs>({
 		name: "",
-		username: "",
+		email: "",
 		password: "",
 	});
+
+	console.log(formInputs)
 
 	const navigate = useNavigate()
 
@@ -28,7 +30,8 @@ export default function AuthForm({
 				formInputs
 			);
 			console.log(res);
-			const jwt = res.data;
+			console.log('from form')
+			const jwt = res.data.jwt;
 			toast.success("jwt", jwt);
 			localStorage.setItem("token", jwt);
 			navigate('/blogs')
@@ -43,7 +46,7 @@ export default function AuthForm({
 
 	return (
 		<>
-			<form className="flex flex-col gap-3 min-w-full p-4 md:min-w-[400px]">
+			<form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-3 min-w-full p-4 md:min-w-[400px]">
 				{type === "signup" ? (
 					<h1 className="text-4xl font-bold">Create an account</h1>
 				) : (
@@ -85,7 +88,7 @@ export default function AuthForm({
 					onChange={(e) => {
 						setFormInputs({
 							...formInputs,
-							username: e.target.value,
+							email: e.target.value,
 						});
 					}}
 					type="email"
@@ -108,7 +111,7 @@ export default function AuthForm({
 					id="password"
 					placeholder="Enter your password"
 				/>
-				<Button onSubmit={sendRequest}>
+				<Button onClick={sendRequest}>
 					{type === "signup" ? "Sign Up" : "Sign In"}
 				</Button>
 			</form>
